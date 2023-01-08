@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  {% include "includes/head.html" %}
+
+  <body>
+    <div class="container-fluid position-relative d-flex p-0">
+      <!-- Spinner Start -->
+      <div
+        id="spinner"
+        class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+      >
+        <div
+          class="spinner-border text-primary"
+          style="width: 3rem; height: 3rem"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <!-- Spinner End -->
+      {% include "includes/sidebar.html" %}
+      <!-- Sidebar Start -->
+
+      <!-- Sidebar End -->
+
+      <!-- Content Start -->
+      <div class="content">
+        <!-- Navbar Start -->
+        {% include "includes/navbar.html" %}
+        <!-- Navbar End -->
+
+        <!-- Contant Here -->
+        <div class="container-fluid pt-4 px-4">
+          <div class="row g-4">
+            <div>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#exampleModal"
+              >
+                <i class="fa fa-plus"></i> Product
+              </button>
+            </div>
+            <div class="col-12">
+              <div class="bg-secondary rounded h-100 p-4">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    
+                    {{form.as_p}}
+                    <button type="submit" class="btn btn-primary">save</button>
+                  </form>
+                
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Contant  -->
+
+       
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end modal -->
+        <!-- Footer Start -->
+        {% include "includes/footer.html" %}
+        <!-- Footer End -->
+      </div>
+      <!-- Content End -->
+
+      <!-- Back to Top -->
+      <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
+        ><i class="bi bi-arrow-up"></i
+      ></a>
+    </div>
+
+    <!-- JavaScript {% static 'libraries -->
+    {% include "includes/scripts.html" %}
+  </body>
+</html>

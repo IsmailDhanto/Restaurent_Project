@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include "includes/head.html" %}
+
+  <body>
+    <div class="container-fluid position-relative d-flex p-0">
+      <!-- Spinner Start -->
+      <div
+        id="spinner"
+        class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+      >
+        <div
+          class="spinner-border text-primary"
+          style="width: 3rem; height: 3rem"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <!-- Spinner End -->
+
+      <!-- Sign Up Start -->
+
+      <div class="container-fluid">
+        <div
+          class="row h-100 align-items-center justify-content-center"
+          style="min-height: 100vh"
+        >
+          <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+            <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+              <div
+                class="d-flex align-items-center justify-content-between mb-3"
+              >
+                <a href="index.html" class="">
+                  <h3 class="text-primary">
+                    <i class="fa fa-user-edit me-2"></i>DarkPan
+                  </h3>
+                </a>
+                <h3>Sign Up</h3>
+                <span class="mb-0 text-muted"> </span>
+              </div>
+
+              <form method="post">
+                {% csrf_token %}
+                <label for="username">Username</label>
+                {{ form.username }}
+                <label for="email">Email</label>
+                {{ form.email}}
+                <label for="password">Password</label>
+                {{ form.password1 }}
+                <label for="password">confirm Password</label>
+                {{ form.password2 }}
+                <label class="control control--checkbox mb-0">
+                  <span class="caption">Admin</span>
+                  {{ form.is_admin }}
+                </label>
+                <label class="control control--checkbox mb-0">
+                  <span class="caption">Cashier</span>
+                  {{ form.is_cashier }}
+                </label>
+                <label class="control control--checkbox mb-4">
+                  <span class="caption">Waiter</span>
+                  {{ form.is_waiter }}
+                </label>
+
+                <span class="text-error">{{ form.errors }}</span>
+                <button type="submit" class="btn btn-primary py-3 w-100 mb-4">
+                  Sign Up
+                </button>
+              </form>
+              <p class="text-center mb-0">
+                Already have an Account?
+                <a href="{% url 'login_view' %}">Sign In</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Sign In End -->
+    </div>
+
+    <!-- JavaScript Libraries -->
+    {% include "includes/scripts.html" %}
+
+    <!-- Template Javascript -->
+  </body>
+</html>

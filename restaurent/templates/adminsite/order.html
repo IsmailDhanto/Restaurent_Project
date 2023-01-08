@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  {% include "adminsite/include/head.html" %}
+
+  <body>
+    <div class="container-fluid position-relative d-flex p-0">
+      <!-- Spinner Start -->
+      <div
+        id="spinner"
+        class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+      >
+        <div
+          class="spinner-border text-primary"
+          style="width: 3rem; height: 3rem"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <!-- Spinner End -->
+      {% include "adminsite/include/sidebar.html" %}
+      <!-- Sidebar Start -->
+
+      <!-- Sidebar End -->
+
+      <!-- Content Start -->
+      <div class="content">
+        <!-- Navbar Start -->
+        {% include "adminsite/include/navbar.html" %}
+        <!-- Navbar End -->
+
+        <!-- Contant Here -->
+
+        <div class="container-fluid pt-4 px-4">
+          <div class="row g-4">
+            <div>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#exampleModal"
+              >
+                <i class="fa fa-plus"></i> Order
+              </button>
+            </div>
+            <div class="col-12">
+              <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">Orders Table</h6>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for i in order %}
+                      <tr>
+                        <th scope="row">{{i.id}}</th>
+                        <td>{{i.product_id}}</td>
+                        <td>{{i.quantity}}</td>
+                        <td>
+                          <a href="{% url 'update_order' i.id %}">
+                            <button class="btn btn-info">
+                              <i class="fa fa-edit"></i>
+                            </button>
+                          </a>
+                          <a
+                            href="{% url 'delete_order' i.id %}"
+                            onclick=" return confirm('are you sure to delete');"
+                          >
+                            <button class="btn btn-danger">
+                              <i class="fa fa-trash"></i>
+                            </button>
+                          </a>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Contant  -->
+
+        <!-- Modal Starts -->
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content bg-secondary">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Add New Order
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div class="bg-secondary rounded h-100 p-4">
+                <form action="{% url 'post_order' %}" method="POST">
+                  {% csrf_token %}
+                  <label for="product">Products</label>
+                  <select
+                    class="form-control bg-dark mb-3"
+                    id="product"
+                    required
+                  >
+                    <option value=""></option>
+                    {% for product in all %}
+                    <option value="{{ product.id}}" name="product_id">
+                      {{ product.product_name}}
+                    </option>
+                    {% endfor %}
+                  </select>
+                  <label for="quantity">Quantity</label>
+                  <input
+                    type="number"
+                    class="form-control mb-3"
+                    id="quantity"
+                    placeholder="enter the quantity you want"
+                    name="quantity"
+                  />
+                  <button type="submit" class="btn btn-primary">save</button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                  name="created_at"
+                >
+                  Close
+                </button>
+                <!--  -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end modal -->
+        <!-- Footer Start -->
+        {% include "adminsite/include/footer.html" %}
+        <!-- Footer End -->
+      </div>
+      <!-- Content End -->
+
+      <!-- Back to Top -->
+      <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
+        ><i class="bi bi-arrow-up"></i
+      ></a>
+    </div>
+
+    <!-- JavaScript {% static 'libraries -->
+    {% include "adminsite/include/scripts.html" %}
+  </body>
+</html>

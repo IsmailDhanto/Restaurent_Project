@@ -180,9 +180,9 @@ def update_order(request, pk):
 
 def staff(request):
     context = {}
-    return render(request, "staff.html", context)
+    return render(request, "adminsite/staff.html", context)
 
 
 def transaction(request):
     context = {}
-    return render(request,"transaction.html", context)
+    return render(request,"adminsite/transaction.html", context)

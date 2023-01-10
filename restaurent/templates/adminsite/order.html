@@ -54,6 +54,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Product</th>
                         <th scope="col">Quantity</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
@@ -61,8 +62,9 @@
                       {% for i in order %}
                       <tr>
                         <th scope="row">{{i.id}}</th>
-                        <td>{{i.product_id}}</td>
+                        <td>{{i.product.product_name}}</td>
                         <td>{{i.quantity}}</td>
+                        <td>{{i.status}}</td>
                         <td>
                           <a href="{% url 'update_order' i.id %}">
                             <button class="btn btn-info">
@@ -115,9 +117,9 @@
               </div>
 
               <div class="bg-secondary rounded h-100 p-4">
-                <form action="{% url 'post_order' %}" method="POST">
-                  {% csrf_token %}
-                  <label for="product">Products</label>
+                <form action="{% url 'post_order' %}" method="post">
+                  {% csrf_token %} {{form.as_p}}
+                  <!-- <label for="product">Products</label>
                   <select
                     class="form-control bg-dark mb-3"
                     id="product"
@@ -137,7 +139,7 @@
                     id="quantity"
                     placeholder="enter the quantity you want"
                     name="quantity"
-                  />
+                  /> -->
                   <button type="submit" class="btn btn-primary">save</button>
                 </form>
               </div>
@@ -150,7 +152,6 @@
                 >
                   Close
                 </button>
-                <!--  -->
               </div>
             </div>
           </div>

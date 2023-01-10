@@ -119,27 +119,36 @@ def update_product(request, pk):
 #region Order
 
 def order(request):
-    
+    form = OrderForm()
     all = Product.objects.all()  
-    order = Order.objects.all()
+    order = Order.objects.filter(status='process').all()
     context ={
         "all":all,
-        "order":order
+        "order":order,
+        "form":form
     }
     return render(request, "adminsite/order.html", context)
 
 def post_order(request):
-    # form = OrderForm()
+    form = OrderForm()
     if request.method == 'POST':
-        if request.POST.get("quantity") and request.POST.get("product_id") :
-            order=Order()
-            order.quantity=request.POST.get("quantity")
-            order.product=request.POST.get("product_id")
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save(commit=False)
             order.save()
-            return render(request, 'adminsite/order.html')  
-
+            product = Product.objects.get(id=order.product_id)
+            price = product.product_cost
+            total_price = order.quantity*price
+            print(total_price)
+            trans = Transaction(order_id=order, total_price=total_price, payment_status='P' )
+           
+            trans.save()
+            return redirect('order')
         else:
-            return render(request, 'adminsite/order.html')
+            print("invalid")
+        print(form)
+
+
 
         # form = OrderForm(request.POST)
         # if form.is_valid():
@@ -154,18 +163,18 @@ def post_order(request):
     # return redirect('order')
 
 def delete_order(request, id):
-    product = Product.objects.get(id=id).delete()
-    return redirect('product')
+    order = Order.objects.get(id=id).delete()
+    return redirect('order')
 
 def update_order(request, pk):
-    form = FormProduct()
-    product = Product.objects.get(id=pk)
-    form = FormProduct(instance=product)
+    form = OrderForm()
+    order = Order.objects.get(id=pk)
+    form = OrderForm(instance=order)
     if request.method == 'POST':
-        form = FormProduct(request.POST, instance=product)
+        form = OrderForm(request.POST, instance=order)
         if form.is_valid():
             form.save()
-            return redirect('product')
+            return redirect('order')
     context = {
         "form":form
     }
@@ -184,5 +193,20 @@ def staff(request):
 
 
 def transaction(request):
-    context = {}
+    trans = Transaction.objects.all()
+    context = {
+        "trans":trans
+    }
     return render(request,"adminsite/transaction.html", context)
+
+
+
+
+def delete_transaction(request, id):
+    trans = Transaction.objects.get(id = id).delete()
+    return redirect('transaction')
+
+
+def update_transaction(request,id):
+    return render (request,"adminsite/update_transaction.html")
+    

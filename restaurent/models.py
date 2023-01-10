@@ -29,6 +29,9 @@ class Product(models.Model):
     product_cost = models.FloatField()
     created_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.product_name
+
 
 """
 this class standars for table of database 
@@ -41,6 +44,10 @@ e.g: procut id, user_id, quantity,total  price
 class Order(models.Model):
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
     quantity = models.PositiveSmallIntegerField()
+    status = models.CharField(max_length=20, blank=True, null=True, default='process')
+
+    def __str__(self):
+        return f' {self.quantity} -- {self.product.product_name}'
 
 
 """

@@ -65,12 +65,12 @@
                         <td>{{i.order_id}}</td>
                         <td>${{i.total_price}}</td>
                         <td>
-                          {% if i.payment_status == 'P' %} pending {% endif %}
-                          {% if i.payment_status == 'C' %} complete {% endif %}
-                          {% if i.payment_status == 'F' %} failled {% endif %}
+                          {% if i.payment_status == 'P' %}pending {% endif %} {%
+                          if i.payment_status == 'C'%}Complete {% endif %} {% if
+                          i.payment_status == 'F'%}Failed {% endif %}
                         </td>
                         <td>
-                          <a href="{% url 'update_order' i.id %}">
+                          <a href="{% url 'update_transaction' i.id %}">
                             <button class="btn btn-info">
                               <i class="fa fa-edit"></i>
                             </button>

@@ -21,6 +21,6 @@ urlpatterns = [
     path("delete_product/<str:id>/",views.delete_product, name='delete_product'),
     path("update_product/<str:pk>/",views.update_product, name='update_product'),
     path('delete_transaction/<str:id>',views.delete_transaction,name='delete_transaction'),
-    # path("update_transaction/<str:id>",views.update_transaction,name="update_transaction")
+    path("update_transaction/<str:id>/",views.update_transaction,name="update_transaction")
 
 ]

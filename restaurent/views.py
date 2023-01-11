@@ -208,5 +208,16 @@ def delete_transaction(request, id):
 
 
 def update_transaction(request,id):
-    return render (request,"adminsite/update_transaction.html")
+    form = Trans_form()
+    trans = Transaction.objects.get(id=id)
+    form = Trans_form(instance=trans)
+    if request.method == 'POST':
+        form = Trans_form(request.POST, instance=trans)
+        form.save()
+        print(trans.payment_status)
+        return redirect('transaction')
+    context = {
+        "form":form
+    }
+    return render (request,"update_transaction.html", context)
     

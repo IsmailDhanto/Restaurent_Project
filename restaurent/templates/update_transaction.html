@@ -48,11 +48,7 @@
                 <form action="" method="POST">
                     {% csrf_token %}
                     
-                    <select name="status" id="">
-                        <option value="P">Pending</option>
-                        <option value="C">Complete</option>
-                        <option value="F">Failed</option>
-                    </select>
+             {{form.as_p}}
                     <button type="submit" class="btn btn-primary">save</button>
                   </form>
                 

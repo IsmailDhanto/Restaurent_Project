@@ -42,3 +42,8 @@ class OrderForm(ModelForm):
     class Meta:
         model = Order
         fields = '__all__'
+
+class  Trans_form(ModelForm):
+    class Meta:
+        model = Transaction
+        fields = ['payment_status']
